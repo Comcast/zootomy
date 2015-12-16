@@ -13,6 +13,90 @@ To run this within a Kubernetes cluster:
 
 This container exposes ports 2181, 2888, and 3888.
 
+## Examples
+
+Here is an example service configuration.
+
+```json
+{
+  "apiVersion": "v1",
+  "kind": "Service",
+  "metadata": {
+    "name": "zookeeper-01",
+    "version": "3.5.0"
+  },
+  "spec": {
+    "ports": [
+      {
+        "name": "client",
+        "port": 2181
+      },
+      {
+        "name": "followers",
+        "port": 2888
+      },
+      {
+        "name": "election",
+        "port": 3888
+      }
+    ],
+    "selector": {
+      "app": "zookeeper",
+      "server-id": "1"
+    }
+  }
+}
+```
+
+Here is an example replication controller configuration:
+
+```json
+{
+  "apiVersion": "v1",
+  "kind": "ReplicationController",
+  "metadata": {
+    "name": "zookeeper-01",
+    "version": "3.5.0"
+  },
+  "spec": {
+    "replicas": 1,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "zookeeper",
+          "server-id": "1"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "MYID",
+                "value": "1"
+              }
+            ],
+            "image": "zookeeper:3.5.0",
+            "name": "server",
+            "ports": [
+              {
+                "containerPort": 2181
+              },
+              {
+                "containerPort": 2888
+              },
+              {
+                "containerPort": 3888
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
 ### Improving
 
 The `zkcfg.go` file contains the little script that reads the k8s environmental variables, and parses, and then writes them to the appropriate files. If any locations of the Zookeeper configurations are changed, make sure to update the location flags in `run.sh` for `zkcfg` so they are written to the right location.
