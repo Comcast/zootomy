@@ -3,7 +3,7 @@
 To run this locally:
 
 1. `make`
-1. `docker run -e MYID=1 -e ZOOKEEPER_01_SERVICE_HOST=$localhostIP <container_id>
+1. `docker run -e MYID=1 -e ZOOKEEPER_01_SERVICE_HOST=$localhostIP <container_id>`
 
 To run this within a Kubernetes cluster:
 
