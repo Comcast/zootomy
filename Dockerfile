@@ -1,7 +1,7 @@
 FROM java:8-jre
 MAINTAINER Mike Lloyd <mike_lloyd@cable.comcast.com>
 
-ENV JVMFLAGS "-Xmx2G"
+ENV _JAVA_OPTIONS "-Xmx2G -Xincgc"
 
 # get zookeeper 3.5.0-alpha
 RUN curl -fLk http://apache.cs.utah.edu/zookeeper/zookeeper-3.5.0-alpha/zookeeper-3.5.0-alpha.tar.gz | tar xzf - -C /opt
