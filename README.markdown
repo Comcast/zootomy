@@ -1,9 +1,9 @@
-## Kubernetes Zookeeper as a Service
+## Kubernetes Zookeeper as a Contained Service
 
 To run this locally:
 
 1. `make`
-1. `docker run -e MYID=1 -e ZOOKEEPER_01_SERVICE_HOST=$localhostIP <container_id>`
+1. `docker run -e MYID=1 -e <container_id>`
 
 To run this within a Kubernetes cluster:
 
@@ -99,4 +99,4 @@ Here is an example replication controller configuration:
 
 ### Improving
 
-The `zkcfg.go` file contains the little script that reads the k8s environmental variables, and parses, and then writes them to the appropriate files. If any locations of the Zookeeper configurations are changed, make sure to update the location flags in `run.sh` for `zkcfg` so they are written to the right location.
+The `zkcfg.go` program is what actually configures Zookeeper. If changes need to be made in regards to Zookeeper configurations, create a pull request and implement them here.
