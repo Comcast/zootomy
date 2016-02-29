@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-//	"strconv"
 )
 
 const (
@@ -27,6 +26,8 @@ func main() {
 		syncLimit     int
 		clientPort    int
 		dynamicConfig string
+		autopurgeRetainCount int
+		autopurgePurgeInterval int
 	)
 
 	flag.StringVar(&zooCfgPath, "zooCfgPath", "", "File path for zoo.cfg")
@@ -40,6 +41,8 @@ func main() {
 	flag.IntVar(&syncLimit, "syncLimit", 5, "the number of ticks that can pass between sending a request and getting an acknowledgement.")
 	flag.IntVar(&clientPort, "clientPort", 2181, "the port to which clients will connect.")
 	flag.StringVar(&dynamicConfig, "dynamicConfig", "zoo.cfg.dynamic", "the path and file name for the dynamic zookeeper.")
+	flag.IntVar(&autopurgeRetainCount, "autopurge.snapRetainCount", 3, "most recent snapshots and the corresponding transaction logs in the dataDir and dataLogDir respectively and deletes the rest. defaults to 3.")
+	flag.IntVar(&autopurgePurgeInterval, "autopurge.purgeInterval", 72, "the time interval in hours for which the purge task has to be triggered. set to a positive integer (1 and above) to enable the auto purging. defaults to 72.")
 
 	flag.Parse()
 
@@ -54,27 +57,13 @@ func main() {
 	configs["syncLimit"] = syncLimit
 	configs["clientPort"] = clientPort
 	configs["dynamicConfigFile"] = dynamicConfig
+	configs["autopurge.snapRetainCount"] = autopurgeRetainCount
+	configs["autopurge.purgeInterval"] = autopurgePurgeInterval
 
 	envVars := genEnvVars()
 
-	/*
-		So Zookeeper needs to bind on 0.0.0.0 for the local listener.
-		Nice of the documentation to talk about that.
-		Info: http://stackoverflow.com/questions/30940981/zookeeper-error-cannot-open-channel-to-x-at-election-address
-	*/
-//	self := "0.0.0.0"
-//	me, err := strconv.Atoi(os.Getenv("MYID"))
-//	if err != nil {
-//		fmt.Printf("cannot read my identity: %s", err)
-//	}
-
 	for idx, envVar := range envVars {
 		if env, found := os.LookupEnv(envVar); found {
-//			if idx+1 == me {
-//				envs = append(envs, fmt.Sprintf("server.%d=%s:2888:3888", idx+1, self))
-//			} else {
-//				envs = append(envs, fmt.Sprintf("server.%d=%s:2888:3888", idx+1, env))
-//			}
 			envs = append(envs, fmt.Sprintf("server.%d=%s:2888:3888", idx+1, env))
 		}
 	}
