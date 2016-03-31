@@ -5,7 +5,9 @@ zkcfg \
 -zooCfgPath=/opt/zookeeper/conf/ \
 -zooCfgName=zoo.cfg \
 -dynamicConfig=/opt/zookeeper/conf/zoo.cfg.dynamic \
--dataDir=/tmp/zookeeper/zk-$MYID
+-dataDir=/tmp/zookeeper/zk-$MYID \
+-autopurge.snapRetainCount=10 \
+autopurge.purgeInterval=24
 
 if [ -n "${LAB+1}" ]; then
 	echo "temporarily starting zookeeper in the background to stage data."
