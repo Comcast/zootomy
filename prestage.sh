@@ -14,13 +14,12 @@
 
 #! /bin/bash
 
-# because the seemingly only sane way to call this script is with parallel, we have to sleep for a bit to let Zookeeper
-# come up properly.
-sleep 10
+# sleep for a bit to allow for proper initialisation with zookeeper.
+sleep 20
 
 echo "prestaging data."
 
-zkCli.sh localhost:2181 -cmd create /$BUCKET_1
-zkCli.sh localhost:2181 -cmd create /$BUCKET_2
+zkCli.sh -server localhost:2181 -cmd create /$BUCKET_1
+zkCli.sh -server localhost:2181 -cmd create /$BUCKET_2
 
 exit

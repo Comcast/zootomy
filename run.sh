@@ -24,7 +24,9 @@ zkcfg \
 -autopurge.purgeInterval=24
 
 if [ -n "${LAB+1}" ]; then
-	parallel ::: prestage.sh "zkServer.sh start-foreground"
+	set -m
+	prestage.sh &
+	zkServer.sh start-foreground
 else
 	echo "Starting zookeeper."
 	zkServer.sh start-foreground

@@ -9,7 +9,7 @@ To run this locally while creating new folder paths:
 
 1. `make`
 1. ```bash
-docker run -ti --net="host" -p 2181:2181 -p 2888:2888 -p 3888:3888 -e MYID=1 -e ZOOKEEPER_01_SERVICE_HOST=localhost 
+docker run -d --net="host" -p 2181:2181 -p 2888:2888 -p 3888:3888 -e MYID=1 -e ZOOKEEPER_01_SERVICE_HOST=localhost 
 -e LAB=1 -e BUCKET_1=Folder1 -e BUCKET_2=Folder2 zookeeper:3.5.0-alpha
 ```
 
@@ -23,7 +23,7 @@ To run this within a Kubernetes cluster:
 
 This container exposes ports 2181, 2888, and 3888.
 
-:exclamation: Note: for best performance use with an emtpyDir volume mount that uses Memory or tmpfs mount from the host.
+:exclamation: For best performance use with an emtpyDir volume mount that uses Memory or tmpfs mount from the host with Kubernetes or `-v` with a tmpfs mount in Docker. :exclamation:
 
 ## Examples
 
