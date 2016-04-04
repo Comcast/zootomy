@@ -13,10 +13,18 @@
 # limitations under the License.
 
 FROM java:8-jre
-MAINTAINER Mike Lloyd <mike_lloyd@cable.comcast.com>
+MAINTAINER Mike Lloyd <mike_lloyd@kevin.michael.lloyd@gmail.com>
+
+# Maintainer's Note:
+# While there are multiple layers, which technically sits outside the Docker officia recommendations, more layers equals
+# more visility since this is essentially a build process. This allows for easier extensibility for other developers and
+# users to extend this to fit their needs.
 
 # enable incremental garbage collection and set the heap to max at 2GB.
 ENV _JAVA_OPTIONS "-Xmx2G -Xincgc"
+
+# get gnu parallel, this allows for parallel execution, which is not normally possible due to the lack of tty.
+RUN apt-get update && apt-get install -y parallel
 
 # get zookeeper 3.5.0-alpha
 RUN curl -fLk http://apache.cs.utah.edu/zookeeper/zookeeper-3.5.0-alpha/zookeeper-3.5.0-alpha.tar.gz | tar xzf - -C /opt
@@ -32,6 +40,7 @@ RUN mkdir /tmp/zookeeper/
 # for more information: https://goo.gl/p7tzlz
 COPY zkcfg /usr/local/bin
 COPY run.sh /opt/zookeeper/bin
+COPY prestage.sh /opt/zookeeper/bin
 
 ENV PATH=/opt/zookeeper/bin:${PATH} \
     ZOO_LOG4J_PROP="INFO, CONSOLE"
