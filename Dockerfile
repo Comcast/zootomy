@@ -42,6 +42,6 @@ COPY prestage.sh /opt/zookeeper/bin
 ENV PATH=/opt/zookeeper/bin:${PATH} \
     ZOO_LOG4J_PROP="INFO, CONSOLE"
 
-EXPOSE 2181 2888 3888
+EXPOSE 2181 2888 3888 8080
 
 CMD run.sh
