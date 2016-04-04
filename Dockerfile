@@ -13,7 +13,12 @@
 # limitations under the License.
 
 FROM java:8-jre
-MAINTAINER Mike Lloyd <mike_lloyd@cable.comcast.com>
+MAINTAINER Mike Lloyd <mike_lloyd@kevin.michael.lloyd@gmail.com>
+
+# Maintainer's Note:
+# While there are multiple layers, which technically sits outside the Docker officia recommendations, more layers equals
+# more visility since this is essentially a build process. This allows for easier extensibility for other developers and
+# users to extend this to fit their needs.
 
 # enable incremental garbage collection and set the heap to max at 2GB.
 ENV _JAVA_OPTIONS "-Xmx2G -Xincgc"
@@ -32,10 +37,11 @@ RUN mkdir /tmp/zookeeper/
 # for more information: https://goo.gl/p7tzlz
 COPY zkcfg /usr/local/bin
 COPY run.sh /opt/zookeeper/bin
+COPY prestage.sh /opt/zookeeper/bin
 
 ENV PATH=/opt/zookeeper/bin:${PATH} \
     ZOO_LOG4J_PROP="INFO, CONSOLE"
 
-EXPOSE 2181 2888 3888
+EXPOSE 2181 2888 3888 8080
 
 CMD run.sh

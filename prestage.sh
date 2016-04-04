@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-.PHONY: all clean
+#! /bin/bash
 
-all:
-	go clean
-	GOARCH=amd64 GOOS=linux go build -v zkcfg.go
-	docker build --no-cache -t zookeeper:3.5.0-alpha .
+# sleep for a bit to allow for proper initialisation with zookeeper.
+sleep 20
 
-clean:
-	go clean
-	docker rmi -f zookeeper:3.5.0-alpha
-	docker rmi $(docker images -f "dangling=true" -q)
+echo "prestaging data."
+
+zkCli.sh -server localhost:2181 -cmd create /$BUCKET_1
+zkCli.sh -server localhost:2181 -cmd create /$BUCKET_2
+
+exit
