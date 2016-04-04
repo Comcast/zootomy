@@ -124,15 +124,15 @@ func genConfig(c map[string]interface{}, f string) error {
 		switch b := b.(type) {
 		case string:
 			configString := fmt.Sprintf("%s=%s\n", a, b)
-			fmt.Printf("writing config: %s", configString)
+			fmt.Printf("Writing config: %s", configString)
 			file.Write([]byte(configString))
 		case int:
 			configString := fmt.Sprintf("%s=%d\n", a, b)
-			fmt.Printf("writing config: %s", configString)
+			fmt.Printf("Writing config: %s", configString)
 			file.Write([]byte(configString))
 		case bool:
 			configString := fmt.Sprintf("%s=%t\n", a, b)
-			fmt.Printf("writing config: %s", configString)
+			fmt.Printf("Writing config: %s", configString)
 			file.Write([]byte(configString))
 		}
 	}
@@ -147,7 +147,6 @@ func genEnvVars() []string {
 		envVar := baseEnv + fmt.Sprintf("%02d", ii) + baseEnvSuffix
 		envVars = append(envVars, envVar)
 	}
-	fmt.Printf("%#v\n", envVars)
 	return envVars
 }
 
@@ -165,7 +164,7 @@ func genMyID(dataDir string) {
 	if err != nil {
 		fmt.Printf("error creating dataDir: %s", err)
 	}
-	fmt.Printf("writing myid file to %s/\n", fmt.Sprintf("%s", dataDir))
+	fmt.Printf("Writing myid file to %s/\n", fmt.Sprintf("%s", dataDir))
 
 	idFile := fmt.Sprintf("%s/myid", dataDir)
 	file, err := os.OpenFile(idFile, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0777)

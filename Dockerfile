@@ -23,9 +23,6 @@ MAINTAINER Mike Lloyd <mike_lloyd@kevin.michael.lloyd@gmail.com>
 # enable incremental garbage collection and set the heap to max at 2GB.
 ENV _JAVA_OPTIONS "-Xmx2G -Xincgc"
 
-# get gnu parallel, this allows for parallel execution, which is not normally possible due to the lack of tty.
-RUN apt-get update && apt-get install -y parallel
-
 # get zookeeper 3.5.0-alpha
 RUN curl -fLk http://apache.cs.utah.edu/zookeeper/zookeeper-3.5.0-alpha/zookeeper-3.5.0-alpha.tar.gz | tar xzf - -C /opt
 RUN mv /opt/zookeeper-3.5.0-alpha /opt/zookeeper
