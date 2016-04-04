@@ -109,3 +109,7 @@ Here is an example replication controller configuration:
 ### Improving
 
 The `zkcfg.go` program is what actually configures Zookeeper. If changes need to be made in regards to Zookeeper configurations, create a pull request and implement them here.
+
+## License
+
+This project is covered under the Apache v2.0 License, please see the [license](LICENSE.md)
