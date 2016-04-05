@@ -8,10 +8,8 @@ To run this locally without staging data:
 To run this locally while creating new folder paths:
 
 1. `make`
-1. ```bash
-docker run -d --net="host" -p 2181:2181 -p 2888:2888 -p 3888:3888 -e MYID=1 -e ZOOKEEPER_01_SERVICE_HOST=localhost 
--e LAB=1 -e BUCKET_1=Folder1 -e BUCKET_2=Folder2 zookeeper:3.5.0-alpha
-```
+1. `docker run -d --net="host" -p 2181:2181 -p 2888:2888 -p 3888:3888 -e MYID=1 -e ZOOKEEPER_01_SERVICE_HOST=localhost 
+-e LAB=1 -e BUCKET_1=Folder1 -e BUCKET_2=Folder2 zookeeper:3.5.0-alpha`
 
 To run this within a Kubernetes cluster:
 
