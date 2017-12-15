@@ -17,9 +17,9 @@
 all:
 	go clean
 	GOARCH=amd64 GOOS=linux go build -v zkcfg.go
-	docker build --no-cache -t zookeeper:3.5.0-alpha .
+	docker build --no-cache -t zookeeper:3.4.8 .
 
 clean:
 	go clean
-	docker rmi -f zookeeper:3.5.0-alpha
+	docker rmi -f zookeeper:3.4.8
 	docker rmi $(docker images -f "dangling=true" -q)

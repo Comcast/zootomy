@@ -23,9 +23,10 @@ MAINTAINER Mike Lloyd <mike_lloyd@kevin.michael.lloyd@gmail.com>
 # enable incremental garbage collection and set the heap to max at 2GB.
 ENV _JAVA_OPTIONS "-Xmx2G -Xincgc"
 
-# get zookeeper 3.5.0-alpha
-RUN curl -fLk http://apache.cs.utah.edu/zookeeper/zookeeper-3.5.0-alpha/zookeeper-3.5.0-alpha.tar.gz | tar xzf - -C /opt
-RUN mv /opt/zookeeper-3.5.0-alpha /opt/zookeeper
+# get zookeeper 3.4.8
+RUN curl -fLk http://archive.apache.org/dist/zookeeper/zookeeper-3.4.8/zookeeper-3.4.8.tar.gz | tar xzf - -C /opt
+RUN mv /opt/zookeeper-3.4.8 /opt/zookeeper
+
 
 # create the configs and default data dir of /tmp/zookeeper
 RUN mkdir /tmp/zookeeper/
@@ -38,6 +39,9 @@ RUN mkdir /tmp/zookeeper/
 COPY zkcfg /usr/local/bin
 COPY run.sh /opt/zookeeper/bin
 COPY prestage.sh /opt/zookeeper/bin
+COPY log4j.properties /opt/zookeeper/conf
+COPY zkServer.sh /opt/zookeeper/bin
+
 
 ENV PATH=/opt/zookeeper/bin:${PATH} \
     ZOO_LOG4J_PROP="INFO, CONSOLE"
