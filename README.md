@@ -9,7 +9,7 @@ To run this locally while creating new folder paths:
 
 1. `make`
 1. `docker run -d --net="host" -p 2181:2181 -p 2888:2888 -p 3888:3888 -e MYID=1 -e ZOOKEEPER_01_SERVICE_HOST=localhost 
--e LAB=1 -e BUCKET_1=Folder1 -e BUCKET_2=Folder2 zookeeper:3.5.0-alpha`
+-e LAB=1 -e BUCKET_1=Folder1 -e BUCKET_2=Folder2 zookeeper:3.4.8`
 
 To run this within a Kubernetes cluster:
 
@@ -33,7 +33,7 @@ Here is an example service configuration.
   "kind": "Service",
   "metadata": {
     "name": "zookeeper-01",
-    "version": "3.5.0"
+    "version": "3.4.8"
   },
   "spec": {
     "ports": [
@@ -66,7 +66,7 @@ Here is an example replication controller configuration:
   "kind": "ReplicationController",
   "metadata": {
     "name": "zookeeper-01",
-    "version": "3.5.0"
+    "version": "3.4.8"
   },
   "spec": {
     "replicas": 1,
@@ -86,7 +86,7 @@ Here is an example replication controller configuration:
                 "value": "1"
               }
             ],
-            "image": "zookeeper:3.5.0",
+            "image": "zookeeper:3.4.8",
             "name": "server",
             "ports": [
               {
